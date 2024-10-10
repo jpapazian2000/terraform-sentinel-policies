@@ -1,4 +1,7 @@
 # Example Third Generation Sentinel Policies for Terraform
+
+NOTE: The content of this repository is in the process of being migrated to the [Terraform Registry](https://registry.terraform.io/browse/policies).
+
 This directory and its sub-directories contain third-generation Sentinel policies and associated [Sentinel CLI](https://docs.hashicorp.com/sentinel/intro/getting-started/install) test cases and mocks which were created in 2020 for AWS, Microsoft Azure, Google Cloud Platform (GCP), and VMware. It also contains some some common, re-usable functions.
 
 Additionally, it contains [Policy Set](https://www.terraform.io/docs/cloud/sentinel/manage-policies.html#the-sentinel-hcl-configuration-file) configuration files so that the cloud-specific and cloud-agnostic policies can easily be added to Terraform Cloud organizations using [VCS Integrations](https://www.terraform.io/docs/cloud/vcs/index.html) after forking this repository.
@@ -30,6 +33,7 @@ You can find most of the common functions used in the third-generation policies 
   * [tfstate-functions](./common-functions/tfstate-functions)
   * [tfconfig-functions](./common-functions/tfconfig-functions)
   * [tfrun-functions](./common-functions/tfrun-functions)
+  * [report](./common-functions/report)
 
 There are also some functions that can be used with the AWS, Azure, and GGP providers in [aws-functions](./aws/aws-functions), [azure-functions](./azure/azure-functions), and [gcp-functions](.gcp/gcp-functions) and some functions that can be used when talking to module registries in [registry-functions](./cloud-agnostic/http-examples/registry-functions).
 
@@ -58,6 +62,8 @@ import "azure-functions" as azure
 import "registry-functions" as registry
 ```
 In this case, we are using `plan`, `state`, `config`, `run`, `aws`, `azure`, and `registry` as aliases for the seven imports to keep lines that use their functions shorter. Of course, you only need to import the modules that contain functions that your policy actually calls.
+
+The `report` module contains necessary logic to pretty print policy evaluation results.
 
 ### The Functions of the tfplan-functions and tfstate-functions Modules
 We discuss these two modules together because they are essentially identical except for their use of the tfplan/v2 and tfstate/v2 imports. (But note that the tfplan-functions module has some filter functions that the tfstate-functions module does not.)
@@ -106,6 +112,10 @@ The `tfrun-functions` module has the following functions:
 
 Documentation for each individual function can be found in this directory:
   * [tfrun-functions](./common-functions/tfrun-functions/docs)
+
+### The Functions of the report Module
+The `report` module has the following functions:
+  * The `generate_policy_report` function accepts a `summary` object and pretty prints the policy evaluation results. More information about this function can be found [here](./common-functions/report/docs)
 
 ### The Functions of the aws-functions Module
 The `aws-functions` module (which is located in the aws/aws-functions directory) has the following functions:
