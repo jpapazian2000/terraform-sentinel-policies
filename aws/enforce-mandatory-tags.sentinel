@@ -13,13 +13,14 @@ import "aws-functions" as aws
 param resource_types default [
   "aws_s3_bucket",
   "aws_instance",
+  "aws_vpc"
 ]
 
 # List of mandatory tags
 # Note that the tags here are for internal HashiCorp usage
 # You should assign your own tags in a "mandatory_tags" parameter in your policy set
 # Or change the tags here in the policy.
-param mandatory_tags default ["Name", "ttl", "owner", "region", "purpose", "atemi"]
+param mandatory_tags default ["Name", "ttl", "owner", "region", "purpose"]
 
 # Get all AWS Resources with standard tags
 allAWSResourcesWithStandardTags =
