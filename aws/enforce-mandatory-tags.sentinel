@@ -13,7 +13,7 @@ import "aws-functions" as aws
 param resource_types default [
   "aws_s3_bucket",
   "aws_instance",
-  "aws_vpc"
+  "aws_vpc",
 ]
 
 # List of mandatory tags
